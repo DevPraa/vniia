@@ -2,37 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 
+using Microsoft.EntityFrameworkCore;
+
 using VNIIA.Server.Models;
 
 namespace VNIIA.Server.Repository
 {
-	public class DocumentRepository
+	/// <summary>
+	/// Репозиторий для работы с документами
+	/// </summary>
+	public class DocumentRepository : RepositoryBase<Document>
 	{
-		public void Create()
-		{
-			//Пример добавления 
-			//using (var context = new DatabaseContext())
-			//{
-
-			//	var std = new Student()
-			//	{
-			//		Name = "Bill"
-			//	};
-
-			//	context.Students.Add(std);
-			//	context.SaveChanges();
-			//}
-		}
-
-		public void Update()
+		public DocumentRepository(DbContext dbContext) : base(dbContext)
 		{
 
 		}
-
-		public void Delete()
-		{
-
-		}
-
 	}
 }

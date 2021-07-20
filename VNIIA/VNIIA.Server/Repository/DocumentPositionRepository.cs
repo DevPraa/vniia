@@ -2,23 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 
+using Microsoft.EntityFrameworkCore;
+
+using VNIIA.Server.Models;
+
 namespace VNIIA.Server.Repository
 {
-	public class DocumentPositionRepository
+	/// <summary>
+	/// Репозиторий для работы с позициями документов
+	/// </summary>
+	public class DocumentPositionRepository : RepositoryBase<DocumentPosition>
 	{
-		public void Create()
+		public DocumentPositionRepository(DbContext dbContext ) : base(dbContext)
 		{
 
 		}
 
-		public void Update()
-		{
-
-		}
-
-		public void Delete()
-		{
-
-		}
 	}
 }
