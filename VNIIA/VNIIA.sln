@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VNIIA.Server", "VNIIA.Server\VNIIA.Server.csproj", "{CECBE365-E909-4932-9B95-10B985FD0843}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VNIIA.ClientServerLibrary", "VNIIA.ClientServerLibrary\VNIIA.ClientServerLibrary.csproj", "{BFF7E7DD-6A0C-4B95-8A8F-E3611238BF9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CECBE365-E909-4932-9B95-10B985FD0843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CECBE365-E909-4932-9B95-10B985FD0843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CECBE365-E909-4932-9B95-10B985FD0843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CECBE365-E909-4932-9B95-10B985FD0843}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFF7E7DD-6A0C-4B95-8A8F-E3611238BF9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFF7E7DD-6A0C-4B95-8A8F-E3611238BF9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFF7E7DD-6A0C-4B95-8A8F-E3611238BF9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFF7E7DD-6A0C-4B95-8A8F-E3611238BF9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0D966FE1-EDCD-479A-A345-1267C74D61B6}
+	EndGlobalSection
+EndGlobal
