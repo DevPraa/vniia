@@ -5,6 +5,7 @@ using System.Text;
 
 using Microsoft.EntityFrameworkCore;
 
+using VNIIA.Server.Common.Helpers;
 using VNIIA.Server.Models;
 using VNIIA.Server.Repository.Interfaces;
 
@@ -13,12 +14,14 @@ namespace VNIIA.Server.Repository
 	/// <summary>
 	/// Базовый репозиторий
 	/// </summary>
-	public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+	public abstract class RepositoryBase<TEntity, TContext> : IRepositoryBase<TEntity> 
+		where TEntity : class, IEntity
+		where TContext : DbContext
 	{
-		DbContext _context;
-		DbSet<TEntity> _dbSet;
+		private readonly TContext _context;
+		private readonly DbSet<TEntity> _dbSet;
 
-		public RepositoryBase(DbContext context)
+		public RepositoryBase(TContext context)
 		{
 			_context = context;
 			_dbSet = context.Set<TEntity>();
@@ -34,6 +37,7 @@ namespace VNIIA.Server.Repository
 		///<inheritdoc/>
 		public virtual void Update(TEntity item)
 		{
+			_context.DetachLocal(item, item.Number);
 			_context.Entry(item).State = EntityState.Modified;
 			_context.SaveChanges();
 		}

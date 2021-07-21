@@ -5,7 +5,12 @@ using System.Text;
 
 namespace VNIIA.Server.Models
 {
-	public abstract class DocumentBase
+	public interface IEntity
+	{
+		int Number { get; set; }
+	}
+
+	public abstract class DocumentBase : IEntity
 	{
 		/// <summary>
 		/// Номер документа

@@ -16,7 +16,7 @@ namespace VNIIA.Server.Models
 		/// <summary>
 		/// Сумма всех позиций документа
 		/// </summary>
-		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+		//[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public int Amount { get; set; }
 
 		/// <summary>

@@ -36,6 +36,7 @@ namespace VNIIA.Server
 
 		private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
 		{
+			//TODO: Исправить остановку хоста. Работает неправильно.
 			_webApp?.StopAsync();
 		}
 	}

@@ -18,10 +18,11 @@ namespace VNIIA.Server.Models
 		/// </summary>
 		public int Sum { get; set; }
 
+
+		public int DocumentId { get; set; }
 		/// <summary>
 		/// Свойство навигации по ссылке: Свойство навигации, содержащее ссылку на одну связанную сущность.
 		/// </summary>
-		[ForeignKey("DocumentForeignKey")]
 		public Document Document { get; set; }
 	}
 }

@@ -24,7 +24,7 @@ namespace VNIIA.Server
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddCustomServices();
-			services.AddControllers();
+			services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +51,8 @@ namespace VNIIA.Server
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapControllers();
+				endpoints.MapControllerRoute(name: "default",
+				pattern: "{controller}/{action}/{id})");
 			});
 		}
 	}

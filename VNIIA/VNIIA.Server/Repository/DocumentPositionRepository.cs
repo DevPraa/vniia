@@ -11,9 +11,9 @@ namespace VNIIA.Server.Repository
 	/// <summary>
 	/// Репозиторий для работы с позициями документов
 	/// </summary>
-	public class DocumentPositionRepository : RepositoryBase<DocumentPosition>
+	public class DocumentPositionRepository : RepositoryBase<DocumentPosition, DatabaseContext>
 	{
-		public DocumentPositionRepository(DbContext dbContext ) : base(dbContext)
+		public DocumentPositionRepository(DatabaseContext dbContext ) : base(dbContext)
 		{
 
 		}

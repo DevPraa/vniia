@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
+using VNIIA.Server.Models;
+
 namespace VNIIA.Server.Repository.Interfaces
 {
-	public interface IRepositoryBase<TEntity> where TEntity : class
+	public interface IRepositoryBase<TEntity> where TEntity : class, IEntity
 	{
 		/// <summary>
 		/// Создаёт объект

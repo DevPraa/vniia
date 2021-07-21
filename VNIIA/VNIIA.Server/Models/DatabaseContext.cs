@@ -14,19 +14,17 @@ namespace VNIIA.Server.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=localhost;Database=VniiaDb;Trusted_Connection=True;");
+            optionsBuilder.EnableSensitiveDataLogging();
         }
 
         //https://docs.microsoft.com/ru-ru/ef/core/modeling/relationships?tabs=fluent-api%2Cdata-annotations-simple-key%2Csimple-key
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DocumentPosition>()
-            .Property<int>("DocumentForeignKey");
-
             //Создаём связь один ко многим между Document и DocumentPosition. (1 документ и много позиций документа)
             modelBuilder.Entity<DocumentPosition>()
                 .HasOne(p => p.Document)
                 .WithMany(b => b.DocumentPositions)
-                .HasForeignKey("DocumentForeignKey");
+                .HasForeignKey(k=>k.DocumentId);
         }
     }
 }
