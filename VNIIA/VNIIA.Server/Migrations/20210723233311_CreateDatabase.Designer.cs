@@ -10,8 +10,8 @@ using VNIIA.Server.Models;
 namespace VNIIA.Server.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210720184439_Initial")]
-    partial class Initial
+    [Migration("20210723233311_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,14 +29,14 @@ namespace VNIIA.Server.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Amount")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.HasKey("Number");
 
@@ -50,27 +50,28 @@ namespace VNIIA.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DocumentForeignKey")
+                    b.Property<int>("DocumentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Sum")
                         .HasColumnType("int");
 
                     b.HasKey("Number");
 
-                    b.HasIndex("DocumentForeignKey");
+                    b.HasIndex("DocumentId");
 
-                    b.ToTable("DocumentPostions");
+                    b.ToTable("DocumentPositions");
                 });
 
             modelBuilder.Entity("VNIIA.Server.Models.DocumentPosition", b =>
                 {
                     b.HasOne("VNIIA.Server.Models.Document", "Document")
-                        .WithMany("DocumentPositions")
-                        .HasForeignKey("DocumentForeignKey")
+                        .WithMany("Positions")
+                        .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -79,7 +80,7 @@ namespace VNIIA.Server.Migrations
 
             modelBuilder.Entity("VNIIA.Server.Models.Document", b =>
                 {
-                    b.Navigation("DocumentPositions");
+                    b.Navigation("Positions");
                 });
 #pragma warning restore 612, 618
         }

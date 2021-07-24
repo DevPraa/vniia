@@ -33,7 +33,8 @@ namespace VNIIA.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.HasKey("Number");
 
@@ -51,7 +52,8 @@ namespace VNIIA.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Sum")
                         .HasColumnType("int");
@@ -60,13 +62,13 @@ namespace VNIIA.Server.Migrations
 
                     b.HasIndex("DocumentId");
 
-                    b.ToTable("DocumentPostions");
+                    b.ToTable("DocumentPositions");
                 });
 
             modelBuilder.Entity("VNIIA.Server.Models.DocumentPosition", b =>
                 {
                     b.HasOne("VNIIA.Server.Models.Document", "Document")
-                        .WithMany("DocumentPositions")
+                        .WithMany("Positions")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -76,7 +78,7 @@ namespace VNIIA.Server.Migrations
 
             modelBuilder.Entity("VNIIA.Server.Models.Document", b =>
                 {
-                    b.Navigation("DocumentPositions");
+                    b.Navigation("Positions");
                 });
 #pragma warning restore 612, 618
         }

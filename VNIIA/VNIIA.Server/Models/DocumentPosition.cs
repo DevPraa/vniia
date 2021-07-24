@@ -6,12 +6,14 @@ using System.Text;
 
 namespace VNIIA.Server.Models
 {
+	[Table("DocumentPositions")]
 	public class DocumentPosition : DocumentBase
 	{
 
 		/// <summary>
 		/// Наименование
 		/// </summary>
+		[MaxLength(100)]
 		public string Name { get; set; }
 		/// <summary>
 		/// Сумма

@@ -12,6 +12,7 @@ namespace VNIIA.Server.Controllers
 {
 	[ApiController]
 	[Route("[controller]/[action]")]
+	[Produces("application/json")]
 	public class DocumentPositionController : BaseDbController<DocumentPosition, DocumentPositionRepository>
 	{
 		private readonly ILogger<DocumentPositionController> _logger;
@@ -26,7 +27,15 @@ namespace VNIIA.Server.Controllers
 		[HttpGet("{id}")]
 		public ActionResult<IEnumerable<DocumentPosition>> GetDocumentRelatedDocumentPositions(int id)
 		{
-			return new ObjectResult(_repository.GetDocumentRelatedDocumentPositions(id));
+			try
+			{
+				return new ObjectResult(_repository.GetDocumentRelatedDocumentPositions(id));
+			}
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}
+
 		}
 	}
 }

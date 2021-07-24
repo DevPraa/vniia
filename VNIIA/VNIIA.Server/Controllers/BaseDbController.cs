@@ -9,77 +9,117 @@ using VNIIA.Server.Repository.Interfaces;
 
 namespace VNIIA.Server.Controllers
 {
-	[Route("[controller]/[action]")]
-	[ApiController]
-	public abstract class BaseDbController<TEntity, TRepository> : ControllerBase
-		where TEntity : class, IEntity
+    
+    [ApiController]
+    [Route("[controller]/[action]")]
+    [Produces("application/json")]
+    public abstract class BaseDbController<TEntity, TRepository> : ControllerBase
+        where TEntity : class, IEntity
         where TRepository : IRepositoryBase<TEntity>
-	{
-		private readonly TRepository _repository;
+    {
+        private readonly TRepository _repository;
 
-		public BaseDbController(TRepository repository)
-		{
-			_repository = repository;
-		}
+        public BaseDbController(TRepository repository)
+        {
+            _repository = repository;
+        }
 
 
         // GET: [controller]/Get
         [HttpGet]
-        public ActionResult<IEnumerable<TEntity>> Get()
+        public virtual ActionResult<IEnumerable<TEntity>> Get()
         {
-            return new ObjectResult(_repository.Get());
+            try
+            {
+                return new ObjectResult(_repository.Get());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         // GET: [controller]/FindById/5
         [HttpGet("{id}")]
-        public ActionResult<TEntity> FindById(int id)
+        public virtual ActionResult<TEntity> FindById(int id)
         {
-            var movie =  _repository.FindById(id);
-            if (movie == null)
+            try
             {
-                return NotFound();
+                var movie = _repository.FindById(id);
+                if (movie == null)
+                {
+                    return NotFound();
+                }
+                return movie;
             }
-            return movie;
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
         }
 
         // PUT: [controller]/Update/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, TEntity movie)
+        public virtual IActionResult Update(int id, TEntity movie)
         {
-            if (id != movie.Number)
+            try
             {
-                return BadRequest();
+                if (id != movie.Number)
+                {
+                    return BadRequest();
+                }
+                var obj = _repository.FindById(movie.Number);
+                if (obj == null)
+                {
+                    return BadRequest("Запись для обновления не найдена");
+                }
+                obj = movie;
+                _repository.Update(obj);
+                return NoContent();
             }
-            var obj = _repository.FindById(movie.Number);
-            if (obj == null)
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            obj = movie;
-            _repository.Update(obj);
-            return NoContent();
         }
 
         // POST: [controller]/Create
         [HttpPost]
-        public ActionResult<TEntity> Create(TEntity movie)
+        public virtual ActionResult<TEntity> Create(TEntity movie)
         {
-            _repository.Create(movie);
-            return CreatedAtAction("FindById", new { id = movie.Number }, movie);
+            try
+            {
+                _repository.Create(movie);
+                return CreatedAtAction("FindById", new { id = movie.Number }, movie);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
         }
 
         // DELETE: [controller]/Delete/5
         [HttpDelete("{id}")]
-        public ActionResult<TEntity> Delete(int id)
+        public virtual ActionResult<TEntity> Delete(int id)
         {
-            var movie = _repository.FindById(id);
-            
-            if (movie == null)
+            try
             {
-                return NotFound();
+                var movie = _repository.FindById(id);
+
+                if (movie == null)
+                {
+                    return NotFound();
+                }
+                _repository.Remove(movie);
+                return movie;
             }
-            _repository.Remove(movie);
-            return movie;
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
         }
     }
 }

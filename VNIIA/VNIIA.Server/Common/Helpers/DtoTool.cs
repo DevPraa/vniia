@@ -21,7 +21,7 @@ namespace VNIIA.Server.Common.Helpers
                     Date = document.Date,
                     Amount = document.Amount,
                     Note = document.Note,
-                    DocumentPositions = document.DocumentPositions.ToDto()
+                    Positions = document.Positions.ToDto()
                 }
                 : null;
         }
@@ -37,7 +37,7 @@ namespace VNIIA.Server.Common.Helpers
                     Number = documentPosition.Number,
                     Name = documentPosition.Name,
                     Sum = documentPosition.Sum,
-                    DocumentNumber = documentPosition.Document.Number
+                    DocumentId = documentPosition.Document.Number
                 }
                 : null;
         }

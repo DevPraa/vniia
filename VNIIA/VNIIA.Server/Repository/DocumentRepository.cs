@@ -22,17 +22,17 @@ namespace VNIIA.Server.Repository
 
 		public override IEnumerable<Document> Get()
 		{
-			return _dbContext.Documents.Include(prop => prop.DocumentPositions).AsEnumerable();
+			return _dbContext.Documents.Include(prop => prop.Positions).AsEnumerable();
 		}
 
 		public override IEnumerable<Document> Get(Func<Document, bool> predicate)
 		{
-			return _dbContext.Documents.Include(prop => prop.DocumentPositions).AsQueryable().Where(predicate).AsEnumerable();
+			return _dbContext.Documents.Include(prop => prop.Positions).AsQueryable().Where(predicate).AsEnumerable();
 		}
 
 		public override Document FindById(int id)
 		{
-			return _dbContext.Documents.Include(prop => prop.DocumentPositions).FirstOrDefault(c => c.Number == id);
+			return _dbContext.Documents.Include(prop =>prop.Positions).Where(c => c.Number == id).SingleOrDefault();
 		}
 	}
 }

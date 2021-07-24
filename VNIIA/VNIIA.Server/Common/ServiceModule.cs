@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
@@ -18,8 +20,6 @@ namespace VNIIA.Server.Common
 		public static void AddCustomServices(this IServiceCollection services)
 		{
 			services.AddSingleton<IStartupService, WebAppStartUp>();
-			services.AddDbContext<DatabaseContext>();
-
 			//Сервисы
 
 
@@ -33,7 +33,9 @@ namespace VNIIA.Server.Common
 				c.SwaggerDoc("v1", new OpenApiInfo
 				{
 					Title = "VNIIA API",
-					Version = "v1"
+					Version = "v1",
+					Description = "API для тестового задания",
+					Contact = new OpenApiContact() { Name = "Виктор Толкачев", Email = "tip67903@gmail.com" }
 				});
 			});
 		}

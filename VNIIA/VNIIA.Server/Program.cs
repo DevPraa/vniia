@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
-
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace VNIIA.Server
@@ -15,28 +13,30 @@ namespace VNIIA.Server
 		static void Main(string[] args)
 		{
 			AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
-			Debug.WriteLine("Запуск сервера API!");
-			var ApiServerHost = "localhost";
-			var ApiServerPort = "10789";
-			var baseAddress = $"http://{ApiServerHost}:{ApiServerPort}/";
-
-			_webApp = CreateHostBuilder(args, baseAddress).Build();
+			_webApp = CreateHostBuilder(args).Build();
 			_webApp.Run();
 
 		}
 
-		public static IHostBuilder CreateHostBuilder(string[] args, string baseAddress) =>
+		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
+					webBuilder.ConfigureAppConfiguration((context, builder)
+						=> {
+						builder.SetBasePath(context.HostingEnvironment.ContentRootPath)
+						.AddJsonFile("appsettings.json")
+						.Build();
+						});
 					webBuilder.UseKestrel();
-					webBuilder.UseUrls(baseAddress);
+					webBuilder.UseUrls();
 					webBuilder.UseStartup<Startup>();
 				});
+	
 
-		private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
+	private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
 		{
-			//TODO: Исправить остановку хоста. Работает неправильно.
+			//TODO:
 			_webApp?.StopAsync();
 		}
 	}

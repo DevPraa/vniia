@@ -22,17 +22,28 @@ namespace VNIIA.Server.Repository
 
 		public override IEnumerable<DocumentPosition> Get()
 		{
-			return _dbContext.DocumentPostions.Include(prop => prop.Document).AsEnumerable();
+			return _dbContext.DocumentPositions.Include(prop => prop.Document).AsEnumerable();
 		}
 
 		public override IEnumerable<DocumentPosition> Get(Func<DocumentPosition, bool> predicate)
 		{
-			return _dbContext.DocumentPostions.Include(prop => prop.Document).AsQueryable().Where(predicate).AsEnumerable();
+			return _dbContext.DocumentPositions.Include(prop => prop.Document).AsQueryable().Where(predicate).AsEnumerable();
 		}
 
 		public override DocumentPosition FindById(int id)
 		{
-			return _dbContext.DocumentPostions.Include(prop => prop.Document).FirstOrDefault(c => c.Number == id);
+			return _dbContext.DocumentPositions.Include(prop => prop.Document).FirstOrDefault(c => c.Number == id);
+		}
+
+		public override void Update(DocumentPosition item)
+		{
+			base.Update(item);
+			var doc = _dbContext.Documents.Find(item.DocumentId);
+			if (doc != null)
+			{
+				_dbContext.Entry(doc).State = EntityState.Modified;
+				_dbContext.SaveChanges();
+			}
 		}
 
 		/// <summary>
